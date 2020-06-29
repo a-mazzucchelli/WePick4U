@@ -14,7 +14,7 @@
         margin: 2rem;
       }
     </style>
-    <title>Prove di Js</title>
+    <title>WePick4U</title>
     <script>
       const serieTv = [];
 
@@ -125,30 +125,30 @@
       // invoca refillSerie() per riempire serieTv al primo arrivo sul sito
       refillSerie();
 
-      // ottieni nuova serie random
-      const randomSerie = (listaSerie) => {
+      // ottieni nuova serie random e rimuovila dalla pool di serieTv, per non riottenerla fino a svuotamento array
+      const getRandomSerie = (listaSerie) => {
+        // ottieni nuova serie random e salvala in randomSerie, restituisci il suo valore a fine funzione
         const maxRange = listaSerie.length;
         const randomNumber = Math.floor(Math.random() * maxRange);
-        return listaSerie[randomNumber];
+        const randomSerie = listaSerie[randomNumber];
+
+        // rimuovi la serie trovata da serieTv
+        listaSerie.splice(randomNumber, 1);
+        
+        // se serieTv si è svuotato, riempilo nuovamente
+        if (serieTv.length === 0) refillSerie();
+
+        return randomSerie;
       };
 
-      // cambia i contenuti della card e rimuove le serie già esaminate dalla pool di serieTv
+      // refresh contenuti della card
       const refreshSerie = (serie) => {
-        // refresh contenuti
         card.querySelector('#random_serie img').src = serie.img;
         card.querySelector('#random_serie .card-title').innerText = serie.title;
         card.querySelector(
           '#random_serie .card-subtitle'
         ).innerText = `${serie.year} - Rating: ${serie.rating}`;
         card.querySelector('#random_serie .card-text').innerText = serie.desc;
-
-        // logica di non-ripetizione
-        const indexSerieToRemove = serieTv.indexOf(
-          serieTv.find((element) => element.title === serie.title)
-        );
-        serieTv.splice(indexSerieToRemove, 1);
-
-        if (serieTv.length === 0) refillSerie();
       };
     </script>
   </head>
@@ -172,11 +172,11 @@
       const card = document.querySelector('#random_serie');
       const button_newSerie = document.querySelector('#button_newSerie');
 
-      const serie_random = randomSerie(serieTv);
-      refreshSerie(serie_random);
+      // invoca refreshSerie() per mettere all'interno della card una serie al primo arrivo sul sito
+      refreshSerie(getRandomSerie(serieTv));
 
       button_newSerie.addEventListener('click', () =>
-        refreshSerie(randomSerie(serieTv))
+        refreshSerie(getRandomSerie(serieTv))
       );
     </script>
   </body>
