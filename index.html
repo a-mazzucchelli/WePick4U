@@ -15,7 +15,26 @@
       }
     </style>
     <title>WePick4U</title>
+    <script></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.2.0/papaparse.min.js"></script>
     <script>
+      const dataSource =
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vSM4xeFrd6dEYHlJ8R7TiS5vlMQ_39VZ7WX6kNQxWHpsmAQFhjlC7T-p8EOiFhkD-2ShLv3LoflMg7W/pub?gid=0&single=true&output=csv';
+
+      const startUp = () => {
+        Papa.parse(dataSource, {
+          download: true,
+          header: true,
+          complete: function (results) {
+            console.log(results);
+          },
+        });
+      };
+
+      window.addEventListener('DOMContentLoaded', (event) => {
+        startUp();
+      });
+
       const serieTv = [];
       const serieTvBench = [];
 

@@ -1,0 +1,24 @@
+{
+  "name": "wepick4u",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-mazzucchelli/WePick4U.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/a-mazzucchelli/WePick4U/issues"
+  },
+  "homepage": "https://github.com/a-mazzucchelli/WePick4U#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "papaparse": "^5.2.0"
+  }
+}
